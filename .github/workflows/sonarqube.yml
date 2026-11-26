@@ -25,7 +25,7 @@ jobs:
             /k:"Slug-Boi_ArchLens-archive" \
             /o:"Slug-Boi" \
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
-            /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" \
+            /d:sonar.host.url="https://sonarcloud.io" \
             /d:sonar.sources=src \
             /d:sonar.exclusions="**/bin/**,**/obj/**"
           dotnet build src/c-sharp/Archlens.csproj
