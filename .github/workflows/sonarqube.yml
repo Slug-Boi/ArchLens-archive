@@ -1,0 +1,32 @@
+name: Sonar
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # full history, needed for blame/new-code detection
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17        # the scanner needs Java
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x   # match the repo's target framework
+      - run: dotnet tool install --global dotnet-sonarscanner
+      - run: |
+          dotnet sonarscanner begin \
+            /k:"Slug-Boi_ArchLens-archive" \
+            /o:"Slug-Boi" \
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
+            /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" \
+            /d:sonar.sources=src \
+            /d:sonar.exclusions="**/bin/**,**/obj/**"
+          dotnet build src/c-sharp/Archlens.csproj
+          dotnet sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
