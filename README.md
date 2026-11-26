@@ -2,6 +2,7 @@
 
 ArchLens generates customisable visual internal dependency diagrams of your codebase, showing packages and their dependencies. It currently supports Python, C#, Go, Java & Kotlin. ArchLens also has a dedicted Visual Studio Code extension, you can call it through CLI and can highlight the differences between GitHub branches to make pull request reviews easier.
 
+
 ## Table of Contents  <!-- omit in toc -->
 
 - [Installation](#installation)
